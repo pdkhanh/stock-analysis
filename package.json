@@ -13,8 +13,10 @@
     "config": "^3.3.0",
     "draw-candlestick": "^2.0.3",
     "express": "^4.17.1",
+    "node-telegram-bot-api": "^0.51.0",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "technicalindicators": "^3.1.0"
+    "technicalindicators": "^3.1.0",
+    "telegram-bot-api": "^2.0.1"
   }
 }
