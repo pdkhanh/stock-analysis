@@ -39,13 +39,13 @@ function scanCandlestick(data) {
         var fileImageName = `./output/${data.stockCode}.png`;
         var filePatternName = `./output/${data.stockCode}.txt`;
         var imageBuffer = drawCandleStick(fiveDayInput);
-        
+
         fs.writeFile(fileImageName, imageBuffer, function (err) {
             if (err) throw err;
         });
-        fs.writeFile(filePatternName, pattern, function (err) {
-            if (err) throw err;
-        });
+        // fs.writeFile(filePatternName, pattern, function (err) {
+        //     if (err) throw err;
+        // });
     }
     return pattern;
 }
