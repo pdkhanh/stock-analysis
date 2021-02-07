@@ -49,10 +49,10 @@ function getData(body){
         }
         for (let index = 1; index < 6; index++) {
             data[`dayInput${index}`] = {
-                'open':open.slice(0,index),
-                'high':high.slice(0,index),
-                'close':close.slice(0,index),
-                'low':low.slice(0,index),
+                'open':open.slice(0,index).reverse(),
+                'high':high.slice(0,index).reverse(),
+                'close':close.slice(0,index).reverse(),
+                'low':low.slice(0,index).reverse(),
              }
         }
         return data

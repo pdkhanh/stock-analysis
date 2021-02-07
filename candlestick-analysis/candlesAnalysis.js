@@ -1,17 +1,5 @@
-var drawCandleStick = require('draw-candlestick');
-var canvas = require('canvas');
-
 var technicalindicators = require('technicalindicators');
-
-// var AbandonedBaby = require('technicalindicators').abandonedbaby;
-// var bearishengulfingpattern = require('technicalindicators').bearishengulfingpattern;
-// var bullishengulfingpattern =require('technicalindicators').bullishengulfingpattern;
-// var darkcloudcover =require('technicalindicators').darkcloudcover;
-// var threeblackcrows =require('technicalindicators').threeblackcrows;
-// var threewhitesoldiers =require('technicalindicators').threewhitesoldiers;
-// var hangingman = require('technicalindicators').hangingman;
-// var shootingstar = require('technicalindicators').shootingstar;
-
+var fileHelper = require('../file-helper/fileHelper')
 var fs = require('fs');
 
 function scanCandlestick(data) {
@@ -35,13 +23,7 @@ function scanCandlestick(data) {
         technicalindicators.dragonflydoji(oneDayInput) ? pattern.push('Dragon Doji Pattern') : "";
 
         if (pattern.length > 0) {
-            var fileImageName = `./output/${data.stockCode}.png`;
-            var filePatternName = `./output/${data.stockCode}.txt`;
-            var imageBuffer = drawCandleStick(fiveDayInput);
-
-            fs.writeFile(fileImageName, imageBuffer, function (err) {
-                if (err) throw err;
-            });
+            fileHelper.writeFile(data, fiveDayInput);
         }
         return pattern;
     } catch (err) {

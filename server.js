@@ -10,6 +10,7 @@ var request = require("request");
 var candelstickAnalysis = require("./candlestick-analysis/candlesAnalysis")
 var telegram = require("./telegram/telegram");
 var vietstock = require("./vietstock/vietstock")
+var facebook = require("./facebook/message")
 
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
@@ -19,13 +20,17 @@ let stockList = require('./stock-code.json');
 
 
 app.get('/stock', function (req, res) {
+    console.log(req.query.stockCode);
     console.log(jsonParser(req.query.stockCode))
 
     vietstock.getStockData(jsonParser(req.query.stockCode)).then((data) => {
         pattern = candelstickAnalysis.scanCandlestick(data)
+        if(pattern.length > 0 ) facebook.sendInternalMessage(req.query.stockCode + ' ' + pattern)
         //if (pattern.length > 0) console.log(req.query.stockCode + ' ' + pattern);
-        if(pattern.length > 0 ) telegram.sendMessage(req.query.stockCode, pattern);
-        res.send(req.query.stockCode + ' ' + pattern);
+        // if(pattern.length > 0 ) {
+        //     telegram.sendMessage(req.query.stockCode, pattern)
+        // };
+        res.send({code: req.query.stockCode, pattern: pattern, url: 'http://localhost:5000/' + req.query.stockCode + '.png'});
     });
 });
 
