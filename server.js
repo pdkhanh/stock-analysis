@@ -25,11 +25,7 @@ app.get('/stock', function (req, res) {
 
     vietstock.getStockData(jsonParser(req.query.stockCode)).then((data) => {
         pattern = candelstickAnalysis.scanCandlestick(data)
-        if(pattern.length > 0 ) facebook.sendInternalMessage(req.query.stockCode + ' ' + pattern)
-        //if (pattern.length > 0) console.log(req.query.stockCode + ' ' + pattern);
-        // if(pattern.length > 0 ) {
-        //     telegram.sendMessage(req.query.stockCode, pattern)
-        // };
+        if(pattern.length > 0 ) telegram.sendMessage(data.stockCode, pattern);
         res.send({code: req.query.stockCode, pattern: pattern, url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'});
     });
 });

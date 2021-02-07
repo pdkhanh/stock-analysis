@@ -1,13 +1,10 @@
-const c = require('config');
 var telegram = require('telegram-bot-api');
 const HOST = 'https://stock-analysis-3k.herokuapp.com/'
-//const HOST = 'http://localhost:5000/'
 const TOKEN = '1545978004:AAHpuhtFWib_TvR5hUZ-wz2vvOIA2v4n3Gw'
 const fs = require('fs')
 
-function sendMessage() {
+function sendMessage(stockCode, pattern) {
     try {
-        //console.log(stockCode + ' '  + pattern)
         var api = new telegram({
             token: TOKEN,
             updates: {
@@ -18,12 +15,12 @@ function sendMessage() {
 
         api.sendPhoto({
             chat_id: -408895188,
-            caption: 'aaa',
-            photo: 'http://localhost:5000/DLG.png'
+            caption: stockCode + ' ' + pattern,
+            photo: HOST + stockCode + '.png'
         })
             .then(function (data) {
                 console.log(data);
-            }).catch(err);
+            })
     } catch (err) {
         console.log(err);
     }

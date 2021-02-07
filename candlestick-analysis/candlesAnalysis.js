@@ -3,7 +3,6 @@ var fileHelper = require('../file-helper/fileHelper')
 var fs = require('fs');
 
 function scanCandlestick(data) {
-    console.log(data.dayInput1)
     try {
         var pattern = [];
         var oneDayInput = data.dayInput1
@@ -23,7 +22,7 @@ function scanCandlestick(data) {
         technicalindicators.dragonflydoji(oneDayInput) ? pattern.push('Dragon Doji Pattern') : "";
 
         if (pattern.length > 0) {
-            fileHelper.writeFile(data, fiveDayInput);
+            fileHelper.writeImage(data.stockCode, fiveDayInput);
         }
         return pattern;
     } catch (err) {

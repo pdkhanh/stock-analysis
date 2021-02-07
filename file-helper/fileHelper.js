@@ -2,9 +2,9 @@ var drawCandleStick = require('draw-candlestick');
 var canvas = require('canvas');
 var fs = require('fs');
 
-function writeFile(data, fiveDayInput){
-    var fileImageName = `./output/${data.stockCode}.png`;
-    var filePatternName = `./output/${data.stockCode}.txt`;
+function writeImage(stockCode, fiveDayInput){
+    var fileImageName = `./output/${stockCode}.png`;
+    var filePatternName = `./output/${stockCode}.txt`;
     var imageBuffer = drawCandleStick(fiveDayInput);
 
     fs.writeFile(fileImageName, imageBuffer, function (err) {
@@ -12,4 +12,4 @@ function writeFile(data, fiveDayInput){
     });
 }
 
-exports.writeFile = writeFile;
+exports.writeImage = writeImage;
