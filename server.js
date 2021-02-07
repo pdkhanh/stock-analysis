@@ -9,48 +9,81 @@ var request = require("request");
 
 var candelstickAnalysis = require("./candlestick-analysis/candlesAnalysis")
 var telegram = require("./telegram/telegram");
-const c = require('config');
+var vietstock = require("./vietstock/vietstock")
 
 app.set('port', process.env.PORT || 5000);
 app.set('ip', process.env.IP || "0.0.0.0");
 app.use(express.static('./output'));
 
-app.get('/test', function (req, res) {
+let stockList = require('./stock-code.json');
 
-    res.send();
+
+app.get('/stock', function (req, res) {
+    console.log(jsonParser(req.query.stockCode))
+
+    vietstock.getStockData(jsonParser(req.query.stockCode)).then((data) => {
+        pattern = candelstickAnalysis.scanCandlestick(data)
+        //if (pattern.length > 0) console.log(req.query.stockCode + ' ' + pattern);
+        if(pattern.length > 0 ) telegram.sendMessage(req.query.stockCode, pattern);
+        res.send(req.query.stockCode + ' ' + pattern);
+    });
 });
 
-data = {
-    'stockCode': 'FPT',
-    'oneDayInput': {
-        open: [30.10],
-        high: [30.10],
-        close: [30.13],
-        low: [28.10],
-    },
-    'twoDayInput': {
-        open: [23.25, 15.36],
-        high: [25.10, 30.87],
-        close: [21.44, 27.89],
-        low: [20.82, 14.93]
-    },
-    'threeDayInput': {
-        open: [21.65, 21.48, 21.25],
-        high: [21.82, 21.57, 21.35],
-        close: [21.32, 21.10, 20.70],
-        low: [21.25, 20.97, 20.60]
-    },
-    'fiveDayInput': {
-        open: [29.50, 33.10, 36.00, 42.80, 40.90],
-        high: [35.90, 37.60, 41.80, 42.80, 43.10],
-        close: [33.10, 36.00, 40.90, 40.90, 38.05],
-        low: [26.90, 27.70, 28.00, 33.10, 37.50],
+function jsonParser(StockCode) {
+    var array = stockList.data;
+    for (let index = 0; index < array.length; index++) {
+        const element = array[index];
+        if(element.StockCode == StockCode) return element.StockID;
     }
-}
-
+ }
 
 server.listen(app.get('port'), app.get('ip'), function () {
-    var pattern = candelstickAnalysis.scanCandlestick(data);
-    telegram.sendMessage(data.stockCode, pattern);
+
+    // console.log(stockList.data[0])
+    // console.log(stockList.data.length)
+
+    // for (let index = 0; index < stockList.data.length; index++) {
+    //     var element = stockList.data[index]
+    //     console.log('Working on ' + element.StockCode)
+    //     vietstock.getStockData(element.StockID).then((data) => {
+    //         pattern = candelstickAnalysis.scanCandlestick(data)
+    //         if (pattern.length > 0) console.log(data.stockCode + ' ' + pattern);
+    //         //if(pattern.length > 0 ) telegram.sendMessage(data.stockCode, pattern);
+    //     });
+    // }
+
+
+
+    // for (let index = 0; index < stockList.data.length; index++) {
+    //     console.log(stockList.data[index].StockID)
+    //     let c = vietstock.getStockData(stockList.data[index].StockID);
+    //     promises.push(c);
+    // }
+
+
+    // Promise.all(promises).then((data) => 
+    //     candelstickAnalysis.scanCandlestick(data)
+    //     //console.log(data)
+    // );
+
+
+
+    // for (var element in stockList.data){
+    //     console.log('Working on ' + element.StockCode)
+    //     vietstock.getStockData(element.StockID).then((data) => {
+    //         pattern = candelstickAnalysis.scanCandlestick(data)
+    //         if(pattern.length > 0 ) console.log(data.stockCode + ' ' +pattern);
+    //         //if(pattern.length > 0 ) telegram.sendMessage(data.stockCode, pattern);
+    //     });
+    // }
+
+    // stockList.data.forEach(element => {
+    //     console.log('Working on ' + element.StockCode)
+    //     vietstock.getStockData(element.StockID).then((data) => {
+    //         pattern = candelstickAnalysis.scanCandlestick(data)
+    //         if(pattern.length > 0 ) console.log(data.stockCode + ' ' +pattern);
+    //         //if(pattern.length > 0 ) telegram.sendMessage(data.stockCode, pattern);
+    //     });
+    // })
     console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
 });
