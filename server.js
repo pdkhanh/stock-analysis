@@ -30,7 +30,7 @@ app.get('/stock', function (req, res) {
         // if(pattern.length > 0 ) {
         //     telegram.sendMessage(req.query.stockCode, pattern)
         // };
-        res.send({code: req.query.stockCode, pattern: pattern, url: 'http://localhost:5000/' + req.query.stockCode + '.png'});
+        res.send({code: req.query.stockCode, pattern: pattern, url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'});
     });
 });
 
