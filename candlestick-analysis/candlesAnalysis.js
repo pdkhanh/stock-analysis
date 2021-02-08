@@ -18,16 +18,22 @@ function scanCandlestick(data) {
         technicalindicators.threewhitesoldiers(threeDayInput) ? pattern.push('threewhitesoldiers') : "";
         technicalindicators.hangingman(fiveDayInput) ? pattern.push('hangingman') : "";
         technicalindicators.shootingstar(fiveDayInput) ? pattern.push('shootingstar') : "";
+        technicalindicators.morningdojistar(threeDayInput) ? pattern.push('morningdojistar') : "";
+        technicalindicators.morningstar(threeDayInput) ? pattern.push('morningstar') : "";
+        technicalindicators.tweezertop(fiveDayInput) ? pattern.push('tweezertop') : "";
+        technicalindicators.tweezerbottom(fiveDayInput) ? pattern.push('tweezerbottom') : "";
+
         technicalindicators.hammerpattern(fiveDayInput) ? pattern.push('hammer') : "";
-        technicalindicators.dragonflydoji(oneDayInput) ? pattern.push('Dragon Doji Pattern') : "";
+        technicalindicators.dragonflydoji(oneDayInput) ? pattern.push('dragonflydoji') : "";
 
         if (pattern.length > 0) {
-            fileHelper.writeImage(data.stockCode, fiveDayInput);
+            fileHelper.writeImage(data.stockCode, data.dayInput12);
+            fileHelper.writePatternResult(data, pattern);
         }
         return pattern;
     } catch (err) {
         console.log(err)
-        console.log('aaa' + data)
+        console.log('data: ' + data)
     }
 }
 

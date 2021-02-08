@@ -8,23 +8,20 @@ const headers = {
 
 var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-var dayMinus20 = new Date(); 
-dayMinus20.setDate(dayMinus20.getDate() - 7);
-dayMinus20 = dateFormat(dayMinus20, "yyyy-mm-dd");
+var dayMinus15 = new Date(); 
+dayMinus15.setDate(dayMinus15.getDate() - 15);
+dayMinus15 = dateFormat(dayMinus15, "yyyy-mm-dd");
 
 function getStockData(stockID) {
-    
     return new Promise(function (resolve, reject) {
-        URL = `https://finance.vietstock.vn/data/KQGDThongKeGiaStockPaging?page=1&pageSize=20&catID=1&stockID=${stockID}&fromDate=${dayMinus20}&toDate=${today}`;
+        URL = `https://finance.vietstock.vn/data/KQGDThongKeGiaStockPaging?page=1&pageSize=20&catID=1&stockID=${stockID}&fromDate=${dayMinus15}&toDate=${today}`;
         request({
             url: URL,
             method: "GET",
             headers: headers,
             json: true,
         }, function (error, response, body) {
-            console.log('URL' + URL)
             resolve(getData(response.body[1]))
-            //resolve(response.body[1])
             if(error) reject(error)
         })
     });
@@ -45,9 +42,12 @@ function getData(body){
         });
         
         var data = {
-            'stockCode': stockCode
+            'stockCode': stockCode,
+            'price': body[0].ClosePrice,
+            'change': body[0].Change,
+            'perChange': body[0].PerChange,
         }
-        for (let index = 1; index < 6; index++) {
+        for (let index = 1; index < 31; index++) {
             data[`dayInput${index}`] = {
                 'open':open.slice(0,index).reverse(),
                 'high':high.slice(0,index).reverse(),
@@ -57,7 +57,6 @@ function getData(body){
         }
         return data
     }catch(err){
-        console.log('error on ' + stockCode)
         console.log(body)
     }
 }
