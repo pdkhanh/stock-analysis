@@ -29,6 +29,8 @@ app.get('/stock', function (req, res) {
             res.send({
                 code: req.query.stockCode,
                 price: data.price,
+                change: data.change,
+                perChange: data.perChange,
                 pattern: pattern,
                 url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'
             });
@@ -44,6 +46,8 @@ app.get('/stock-no-message', function (req, res) {
             res.send({
                 code: req.query.stockCode,
                 price: data.price,
+                change: data.change,
+                perChange: data.perChange,
                 pattern: pattern,
                 url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'
             });
