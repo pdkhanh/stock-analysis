@@ -3,6 +3,7 @@ var canvas = require('canvas');
 var fs = require('fs');
 
 function writeImage(stockCode, fiveDayInput){
+    console.log(fiveDayInput)
     var fileImageName = `./output/${stockCode}.png`;
     var filePatternName = `./output/${stockCode}.txt`;
     var imageBuffer = drawCandleStick(fiveDayInput);

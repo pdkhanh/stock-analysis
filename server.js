@@ -63,5 +63,6 @@ function jsonParser(StockCode) {
 }
 
 server.listen(app.get('port'), app.get('ip'), function () {
+    telegram.getUpdate();
     console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
 });
