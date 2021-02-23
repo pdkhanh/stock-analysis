@@ -2,11 +2,11 @@ var drawCandleStick = require('draw-candlestick');
 var canvas = require('canvas');
 var fs = require('fs');
 
-function writeImage(stockCode, fiveDayInput){
-    console.log(fiveDayInput)
+function writeImage(stockCode, dayInput){
+    console.log(dayInput)
     var fileImageName = `./output/${stockCode}.png`;
     var filePatternName = `./output/${stockCode}.txt`;
-    var imageBuffer = drawCandleStick(fiveDayInput);
+    var imageBuffer = drawCandleStick(dayInput);
 
     fs.writeFile(fileImageName, imageBuffer, function (err) {
         if (err) throw err;

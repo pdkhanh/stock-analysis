@@ -8,13 +8,13 @@ const headers = {
 
 var today = dateFormat(new Date(), "yyyy-mm-dd");
 
-var dayMinus15 = new Date(); 
-dayMinus15.setDate(dayMinus15.getDate() - 15);
-dayMinus15 = dateFormat(dayMinus15, "yyyy-mm-dd");
+var dayMinus30 = new Date(); 
+dayMinus30.setDate(dayMinus30.getDate() - 30);
+dayMinus30 = dateFormat(dayMinus30, "yyyy-mm-dd");
 
 function getStockData(stockID) {
     return new Promise(function (resolve, reject) {
-        URL = `https://finance.vietstock.vn/data/KQGDThongKeGiaStockPaging?page=1&pageSize=20&catID=1&stockID=${stockID}&fromDate=${dayMinus15}&toDate=${today}`;
+        URL = `https://finance.vietstock.vn/data/KQGDThongKeGiaStockPaging?page=1&pageSize=20&catID=1&stockID=${stockID}&fromDate=${dayMinus30}&toDate=${today}`;
         request({
             url: URL,
             method: "GET",
