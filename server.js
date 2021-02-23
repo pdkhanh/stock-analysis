@@ -31,6 +31,8 @@ app.get('/stock', function (req, res) {
                 price: data.price,
                 change: data.change,
                 perChange: data.perChange,
+                mTotalVol: data.mTotalVol,
+                ptTotalVol: data.ptTotalVol,
                 pattern: pattern,
                 url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'
             });
@@ -38,9 +40,6 @@ app.get('/stock', function (req, res) {
 });
 
 app.get('/stock-no-message', function (req, res) {
-    // console.log(req.query.stockCode);
-    // console.log(jsonParser(req.query.stockCode))
-
     vietstock.getStockData(jsonParser(req.query.stockCode)).then((data) => {
         pattern = candelstickAnalysis.scanCandlestick(data)
             res.send({
@@ -48,6 +47,8 @@ app.get('/stock-no-message', function (req, res) {
                 price: data.price,
                 change: data.change,
                 perChange: data.perChange,
+                mTotalVol: data.mTotalVol,
+                ptTotalVol: data.ptTotalVol,
                 pattern: pattern,
                 url: 'https://stock-analysis-3k.herokuapp.com/' + req.query.stockCode + '.png'
             });

@@ -46,6 +46,8 @@ function getData(body){
             'price': body[0].ClosePrice,
             'change': body[0].Change,
             'perChange': body[0].PerChange,
+            'mTotalVol': body[1].M_TotalVol,
+            'ptTotalVol': body[1].PT_TotalVol
         }
         for (let index = 1; index < 31; index++) {
             data[`dayInput${index}`] = {

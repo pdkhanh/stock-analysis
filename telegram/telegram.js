@@ -89,4 +89,3 @@ function callStock(code) {
 
 exports.sendMessage = sendMessage
 exports.getUpdate = getUpdate
-exports.callStock = callStock
