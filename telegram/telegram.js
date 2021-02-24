@@ -2,7 +2,6 @@ var telegram = require('telegram-bot-api');
 const HOST = 'https://stock-analysis-3k.herokuapp.com/'
 const TOKEN = '1545978004:AAHpuhtFWib_TvR5hUZ-wz2vvOIA2v4n3Gw'
 var CHAT_ID = -408895188
-const fs = require('fs')
 
 function sendMessage(data, pattern) {
     try {

@@ -1,6 +1,5 @@
 var technicalindicators = require('technicalindicators');
 var fileHelper = require('../file-helper/fileHelper')
-var fs = require('fs');
 
 function scanCandlestick(data) {
     try {
