@@ -30,7 +30,7 @@ app.get('/stock', function (req, res) {
                 mTotalVol: data.mTotalVol,
                 ptTotalVol: data.ptTotalVol,
                 pattern: pattern,
-                url: 'https://stock-analysis-3k.herokuapp.com/' + stockCode + '.png'
+                url: pattern.length > 0 ? 'https://stock-analysis-3k.herokuapp.com/' + stockCode + '.png' :  "" 
             });
     });
 });
@@ -47,7 +47,7 @@ app.get('/stock-no-message', function (req, res) {
                 mTotalVol: data.mTotalVol,
                 ptTotalVol: data.ptTotalVol,
                 pattern: pattern,
-                url: 'https://stock-analysis-3k.herokuapp.com/' + stockCode + '.png'
+                url: pattern.length > 0 ? 'https://stock-analysis-3k.herokuapp.com/' + stockCode + '.png' :  "" 
             });
     });
 });
